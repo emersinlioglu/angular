@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: ubuntu-latest
@@ -16,12 +16,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    npm install -g @angular/cli
     npm install
     npm run lib
-  displayName: 'npm install, build and test'
+  displayName: 'npm install and build'
 
 - task: Npm@1
   inputs:
     command: publish
-    publishRegistry: useFeed
-    publishFeed: mylib
+    publishEndpoint: 'my-npm-service-connection'
